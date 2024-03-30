@@ -267,11 +267,17 @@ namespace AntSK.Pages.Setting.AIModel
                 _ = Message.Error("请输入正确的Python dll路径！", 2);
                 return;
             }
-            BgeIsStart = true;
-            BgeBtnText = "正在初始化...";
+            InvokeAsync(() =>
+            {
+                BgeIsStart = true;
+                BgeBtnText = "正在初始化...";
+            });
             EmbeddingConfig.LoadModel(_aiModel.EndPoint, _aiModel.ModelName);
-            BgeBtnText = "初始化完成";
+            InvokeAsync(() =>
+            {
+                BgeBtnText = "初始化完成";
             BgeIsStart = false;
+            });
         }
         private async Task CmdLogHandler(string message)
         {
